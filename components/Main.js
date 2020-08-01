@@ -5,10 +5,10 @@ import { createDrawerNavigator ,DrawerItems} from 'react-navigation-drawer';
 import { createAppContainer , SafeAreaView} from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import Home from './Home/Home';
-import Login from './Users/Login';
-import Registration from './Users/Registration';
+import NewPage from './NewPage';
 import { styles,themeColor,drawerBackgroundColor} from '../utils/style';
 import { scale, verticalScale } from 'react-native-size-matters';
+import  test  from "./test";
 
 
 class Main extends Component {
@@ -24,7 +24,17 @@ class Main extends Component {
   render() {
 
     const HomeNavigator = createStackNavigator({
-      Home : { screen : Home }
+      Home: {
+        screen: Home,
+        navigationOptions: ({ navigation }) => ({
+          headerLeft: (
+            <Icon name="menu" size={scale(28)} 
+            color= 'white'
+            onPress={ () => navigation.toggleDrawer() } /> 
+          )
+        })
+      },
+      NewPage : { screen : NewPage }
       },
       {
         initialRouteName : 'Home',
@@ -35,43 +45,16 @@ class Main extends Component {
           headerTintColor: '#fff',
           headerTitleStyle: {
             color: "#fff"
-          },
-          headerLeft: (
-            <Icon name="menu" size={scale(28)} 
-            color= 'white'
-            onPress={ () => navigation.toggleDrawer() } /> 
-          )
+          }
         })
       }
     );
 
-    const LoginNavigator = createStackNavigator({
-        Login : { screen : Login }
+      const testNavigator = createStackNavigator({
+        test : { screen : test }
         },
         {
-          initialRouteName : 'Login',
-          defaultNavigationOptions : ({navigation}) => ({
-            headerStyle : {
-              backgroundColor : themeColor
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              color: "#fff"
-            },
-            headerLeft: (
-              <Icon name="menu" size={scale(28)} 
-              color= 'white'
-              onPress={ () => navigation.toggleDrawer() } /> 
-            )
-          })
-        }
-      );
-
-      const RegistrationNavigator = createStackNavigator({
-        Registration : { screen : Registration }
-        },
-        {
-          initialRouteName : 'Registration',
+          initialRouteName : 'test',
           defaultNavigationOptions : ({navigation}) => ({
             headerStyle : {
               backgroundColor : themeColor
@@ -106,31 +89,15 @@ class Main extends Component {
           )
         }
       },
-      'Registration':
+      'Test':
       {
-        screen: RegistrationNavigator,
+        screen: testNavigator,
         navigationOptions: {
-          title: 'Registration',
-          drawerLabel: 'Registration',
+          title: 'test',
+          drawerLabel: 'Test',
           drawerIcon: ({ tintColor }) => (
             <Icon
               name='list'
-              type='font-awesome'            
-              size={24}
-              iconStyle={{ color: tintColor }}
-            />
-          )
-        }
-      }
-      , 'Login':
-      {
-        screen: LoginNavigator,
-        navigationOptions: {
-          title: 'Login',
-          drawerLabel: 'Login',
-          drawerIcon: ({ tintColor }) => (
-            <Icon
-              name='shopping-bag'
               type='font-awesome'            
               size={24}
               iconStyle={{ color: tintColor }}
@@ -149,7 +116,7 @@ class Main extends Component {
                 </View>
                 <View >
                     <Text style={styles.logo}>
-                       Stupa
+                       Task
                    </Text>
                 </View>
               </View>
